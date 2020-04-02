@@ -3,19 +3,19 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-<div class="container my-2">
+<div class="container mt-2">
     <h1>Articles</h1>
     {# <p>Nombre d'articles : {{ articles.getTotalItemCount }}</p> #}
 
 	<div class="row">
 	{% for article in articles %}
-		<div class="col-md-4">
-			<div class="card">
+		<div class="col-md-4 mb-4">
+			<div class="card h-100 border-primary">
 				<div class="card-body">
 					<h4>{{ article.title }}</h4>
 					<p>{{ article.createdAt|date('d/m/Y à H:i') }} dans la catégorie ?</p>
 					<p>{{ article.introArticle }}</p>
-					<a href="{{ path('article_show', {'id': article.id}) }}" class="card-link">Show</a>
+					<a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-outline-info">Lire la suite</a>
 					<a href="{{ path('article_edit', {'id': article.id}) }}" class="card-link">Edit</a>
 				</div>
 			</div>
@@ -25,5 +25,8 @@
 	{% endfor %}
 	<div>
 </div>
+<div class="container">
+
     {{ knp_pagination_render(articles) }}
+</div>
 {% endblock %}
