@@ -95,13 +95,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Article $article): Response
+    public function delete(Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($article);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($article);
+        $entityManager->flush();
 
         return $this->redirectToRoute('article_index');
     }
