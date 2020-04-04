@@ -50,6 +50,7 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $article->setCreatedAt(new \DateTime);
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -65,8 +66,9 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article): Response
+    public function show($id, ArticleRepository $articleRepository): Response
     {
+        $article = $articleRepository->find($id);
         return $this->render('article/show.html.twig', [
             'article' => $article,
         ]);
@@ -95,9 +97,10 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
-    public function delete(Article $article): Response
+    public function delete($id, ArticleRepository $articleRepository): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+        $article = $articleRepository->find($id);
         $entityManager->remove($article);
         $entityManager->flush();
 
