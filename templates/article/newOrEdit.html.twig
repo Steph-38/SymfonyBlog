@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-
-{% block title %}Ajout d'un article{% endblock %}
+{% block title %}Modification Article{% endblock %}
 
 {% block body %}
+    <div class="container mt-2">
 
-    <div class="container mt-2"> 
+    {% if editMode %}
+        <h1>Modififier un article</h1>
+    {% else %}
         <h1>Ajouter un article</h1>
+    {% endif %}
 
         {{ form_start(form) }}
             {{ form_row(form.title, {'attr': {'placeholder': "Titre de l'article *"}}) }}
             {{ form_row(form.content, {'attr': {'placeholder': "Contenu de l'article *"}}) }}
             {{ form_row(form.image, {'attr': {'placeholder': "URL de l'image"}}) }}
 
-            <button type="submit" class="btn btn-outline-info">Ajouter</button>
+            <button type="submit" class="btn btn-outline-info">
+            {% if editMode %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+            </button>
         {{ form_end(form) }}
     </div>
 

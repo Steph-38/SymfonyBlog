@@ -41,7 +41,35 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
+    public function createOrEdit(Article $article = null, Request $request) {
+        if (!$article) {
+            $article = new Article();
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+        
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            if (!$article->getId()) {
+                $article->setCreatedAt(new \DateTime);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article_index');
+        }
+        // dump($request);
+        return $this->render('article/new.html.twig', [
+            'form' => $form->createView(),
+            'editMode' => $article->getId() !== null
+        ]);
+    }
+
     public function new(Request $request): Response
     {
         $article = new Article();
@@ -74,9 +102,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
-     */
+
     public function edit(Request $request, Article $article): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
