@@ -43,7 +43,7 @@ class ArticleController extends AbstractController
      * @Route("/new", name="article_new", methods={"GET","POST"})
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
      */
-    public function createOrEdit(Article $article = null, Request $request) {
+    public function newOrEdit(Article $article = null, Request $request) {
         if (!$article) {
             $article = new Article();
         }
@@ -64,9 +64,10 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('article_index');
         }
         // dump($request);
-        return $this->render('article/new.html.twig', [
+        return $this->render('article/newOrEdit.html.twig', [
             'form' => $form->createView(),
-            'editMode' => $article->getId() !== null
+            'editMode' => $article->getId() !== null,
+            'article' => $article
         ]);
     }
 
