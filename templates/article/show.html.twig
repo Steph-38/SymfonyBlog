@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container my-2">
     <h1>{{ article.title }}</h1>
-    <p>{{ article.createdAt|date('d/m/Y à H:i') }} dans la catégorie ?</p>
+    <p>{{ article.createdAt|date('d/m/Y à H:i') }} dans la catégorie {{ article.category.name }}</p>
     <p>{{ article.content|nl2br }}</p>
     <p>{{ article.image }}</p>
     <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-outline-warning">Modifier</a>
