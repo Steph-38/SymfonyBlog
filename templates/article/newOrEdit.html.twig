@@ -14,6 +14,7 @@
         {{ form_start(form) }}
             {{ form_row(form.title, {'attr': {'placeholder': "Titre de l'article *"}}) }}
             {{ form_row(form.content, {'attr': {'placeholder': "Contenu de l'article *"}}) }}
+            {{ form_row(form.category) }}
             {{ form_row(form.image, {'attr': {'placeholder': "URL de l'image"}}) }}
 
             <button type="submit" class="btn btn-outline-info">
