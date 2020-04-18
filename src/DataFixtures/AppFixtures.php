@@ -2,13 +2,16 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+
     public function load(ObjectManager $manager)
     {
         // Ajout des catégories
@@ -30,6 +33,7 @@ class AppFixtures extends Fixture
             }
         }
 
+        // Ajout d'un utilisateur
         // $product = new Product();
         // $manager->persist($product);
 
